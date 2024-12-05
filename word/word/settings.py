@@ -26,7 +26,12 @@ SECRET_KEY = 'django-insecure-yhmq&j=n^!(wu4q6ju&^3$9#(^!p5xn+fa!s&fq8j_(z3w1=su
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['http://localhost', 'http://127.0.0.1']
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost',
+    'http://127.0.0.1',
+]
 
 
 # Application definition
@@ -39,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'new.apps.NewConfig',
-    'home.apps.HomeConfig'
+    'home.apps.HomeConfig',
+    'stats.apps.StatsConfig'
 ]
 
 MIDDLEWARE = [

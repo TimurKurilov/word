@@ -1,0 +1,10 @@
+<h1>Статистика</h1>
+{% if stats %}
+    <ul>
+        {% for stat in stats %}
+            <li>{{ stat.word }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Нет данных для отображения.</p>
+{% endif %}

@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from django.views.generic.edit import CreateView
+from .models import wordadd
+from .forms import wordaddForm
 
-# Create your views here.
+class wordaddview(CreateView):
+    model = wordadd
+    form_class = wordaddForm
+    template_name = 'add/addpage.html'
+    success_url = '/add/'

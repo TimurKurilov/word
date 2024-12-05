@@ -1,6 +1,9 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'styles.css' %}">
-<a href="#" class="button">
+
+<div class="button-container">
+  <!-- Кнопка 1 -->
+  <a href="#" class="button">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="20"
@@ -22,7 +25,7 @@
   </a>
   
   <!-- Кнопка 2 -->
-  <a href="#" class="button">
+  <a href="{% url 'wordaddview' %}" class="button">
     <svg class="svg-icon" fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
       <g stroke="#a649da" stroke-linecap="round" stroke-width="2">
         <path d="m20 20h-16"></path>
@@ -33,7 +36,7 @@
   </a>
   
   <!-- Кнопка 3 -->
-  <a href="#" class="button">
+  <a href="{% url 'stats' %}" class="button">
     <svg fill="none" height="24" viewBox="0 0 24 24" width="24" class="svg-icon">
       <g clip-rule="evenodd" fill-rule="evenodd" stroke="#056dfa" stroke-linecap="round" stroke-width="2">
         <path d="m3 7h17c.5523 0 1 .44772 1 1v11c0 .5523-.4477 1-1 1h-16c-.55228 0-1-.4477-1-1z"></path>
@@ -42,4 +45,4 @@
     </svg>
     <span class="lable">Stats</span>
   </a>
-  
+</div>
