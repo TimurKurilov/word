@@ -13,7 +13,10 @@
         {% if stats %}
             <ul class="stats-list">
                 {% for stat in stats %}
-                    <li>{{ stat.word }}</li>
+                    <li class="stat-item">
+                        <span class="stat-word">{{ stat.word }}</span>
+                        <span class="stat-translation">{{ stat.translation }}</span>
+                    </li>
                 {% endfor %}
             </ul>
         {% else %}
