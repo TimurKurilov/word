@@ -1,10 +1,24 @@
-<h1>Статистика</h1>
-{% if stats %}
-    <ul>
-        {% for stat in stats %}
-            <li>{{ stat.word }}</li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>Нет данных для отображения.</p>
-{% endif %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics</title>
+    <link rel="stylesheet" href="{% static 'styles3.css' %}">
+</head>
+<body>
+    <div class="stats-wrapper">
+        <h1>Статистика</h1>
+        {% if stats %}
+            <ul class="stats-list">
+                {% for stat in stats %}
+                    <li>{{ stat.word }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="no-data">Нет данных для отображения.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
