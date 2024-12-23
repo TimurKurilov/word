@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repeat Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .main-word {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .answers {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .answer {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .answer:hover {
+            background-color: #0056b3;
+        }
+        .answer.correct {
+            background-color: #28a745 !important;
+        }
+        .answer.incorrect {
+            background-color: #dc3545 !important;
+        }
+        .answer.disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% if error %}
+            <p>{{ error }}</p>
+        {% else %}
+            <!-- Главное слово -->
+            <div class="main-word">{{ one_word.word }}</div>
+
+            <!-- Варианты ответа -->
+            <div class="answers">
+                {% for word in words %}
+                    <button 
+                        class="answer" 
+                        data-correct="{{ word.is_correct }}">
+                        {{ word.translation }}
+                    </button>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
