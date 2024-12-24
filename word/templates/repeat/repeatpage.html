@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,16 +44,43 @@
             background-color: #0056b3;
         }
         .answer.correct {
-            background-color: #28a745 !important;
+            background-color: #28a745 !important; /* Зеленый для правильного */
         }
         .answer.incorrect {
-            background-color: #dc3545 !important;
+            background-color: #dc3545 !important; /* Красный для неправильного */
         }
         .answer.disabled {
-            cursor: not-allowed;
-            opacity: 0.6;
+            opacity: 0.6; /* Убираем запрещение действия */
         }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const answers = document.querySelectorAll(".answer");
+            const continueButton = document.querySelector("form button");  // Кнопка продолжить
+
+            answers.forEach(answer => {
+                answer.addEventListener("click", function () {
+                    if (this.dataset.correct === "true") {
+                        this.classList.add("correct"); // Зеленый цвет для правильного ответа
+                    } else {
+                        this.classList.add("incorrect"); // Красный цвет для неправильного ответа
+                    }
+
+                    // Блокируем кнопки с вариантами ответа, но не кнопку "Продолжить"
+                    answers.forEach(btn => {
+                        if (btn !== continueButton) {
+                            btn.disabled = true;
+                            btn.classList.add("disabled");
+                        }
+                    });
+
+                    // Убираем блокировку с кнопки "Продолжить"
+                    continueButton.disabled = false;
+                    continueButton.classList.remove("disabled");
+                });
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -66,13 +93,18 @@
             <!-- Варианты ответа -->
             <div class="answers">
                 {% for word in words %}
-                    <button 
-                        class="answer" 
-                        data-correct="{{ word.is_correct }}">
-                        {{ word.translation }}
-                    </button>
+                <button 
+                    class="answer" 
+                    data-correct="{{ word.is_correct|yesno:'true,false' }}">
+                    {{ word.translation }}
+                </button>
                 {% endfor %}
             </div>
+
+            <!-- Кнопка продолжить -->
+            <form method="GET" action="{% url 'repeat' %}" style="margin-top: 20px;">
+                <button type="submit" class="answer" disabled>Продолжить</button>
+            </form>
         {% endif %}
     </div>
 </body>

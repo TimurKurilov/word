@@ -10,5 +10,5 @@ urlpatterns = [
     path('homepage/', homepage, name="homepage"),
     path('add/', wordaddview.as_view(), name="wordaddview"),
     path('stats/', stats, name="stats"),
-    path('repeat/', repeat, name="repeat")
+    path('repeat/', repeat, name="repeat"),
 ]

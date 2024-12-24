@@ -1,13 +1,12 @@
 from django.shortcuts import render
 from new.models import wordadd
-from random import choice
+from random import sample
 import requests
 
 def translate(url):
     response = requests.get(url)
     if response.status_code == 200:
         data = response.json()
-        print(data)
         if "translation" in data:
             return data["translation"]
         else:
@@ -16,16 +15,25 @@ def translate(url):
         return "Ошибка API"
 
 def repeat(request):
-    mylist = []
-    mylist_translate = []
+    # Подготовка уникальных слов
     words = list(wordadd.objects.all())
-    for i in range(4):
-        q = choice(words)
-        mylist.append(q)
-        if i == 3:
-            word = q
-    for w in mylist:
-        translation = translate(f"https://lingva.ml/api/v1/en/ru/{w.word}")
-        mylist_translate.append({"translation": translation})
-    return render(request, "repeat/repeatpage.html", {"words": mylist_translate, "one_word": word})
-        
+    if len(words) < 4:
+        return render(request, "repeat/repeatpage.html", {"error": "Недостаточно слов в базе данных."})
+    
+    selected_words = sample(words, 4)  # Уникальный выбор слов
+    main_word = selected_words[-1]  # Одно слово для перевода
+
+    # Создание списка слов с переводами
+    words_with_translations = []
+    for word in selected_words:
+        translation = translate(f"https://lingva.ml/api/v1/en/ru/{word.word}")
+        words_with_translations.append({
+            "word": word.word,
+            "translation": translation,
+            "is_correct": word == main_word
+        })
+
+    return render(request, "repeat/repeatpage.html", {
+        "words": words_with_translations,
+        "one_word": main_word,
+    })
