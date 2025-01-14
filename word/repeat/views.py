@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from new.models import wordadd
-from random import sample
+from random import sample, randint
 import requests
 
 def translate(url):
@@ -21,7 +21,7 @@ def repeat(request):
         return render(request, "repeat/repeatpage.html", {"error": "Недостаточно слов в базе данных."})
     
     selected_words = sample(words, 4)  # Уникальный выбор слов
-    main_word = selected_words[-1]  # Одно слово для перевода
+    main_word = selected_words[randint(0,3)]  # Одно слово для перевода
 
     # Создание списка слов с переводами
     words_with_translations = []
